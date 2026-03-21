@@ -3,13 +3,25 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
-export default function InsightsClient({ data }: any) {
-  const [search, setSearch] = useState('')
-  const [activeCategory, setActiveCategory] = useState('All')
+type Insight = {
+  slug: string
+  title: string
+  category: string
+  date: string
+  excerpt?: string
+}
 
-  const categories = ['All', ...new Set(data.map((item: any) => item.category))]
+export default function InsightsClient({ data }: { data: Insight[] }) {
+  const [search, setSearch] = useState<string>('')
+  const [activeCategory, setActiveCategory] = useState<string>('All')
 
-  const filtered = data.filter((item: any) => {
+  // ✅ FIXED TYPE ISSUE HERE
+  const categories: string[] = [
+    'All',
+    ...Array.from(new Set(data.map((item) => item.category))),
+  ]
+
+  const filtered = data.filter((item) => {
     const matchesSearch = item.title
       .toLowerCase()
       .includes(search.toLowerCase())
@@ -61,7 +73,7 @@ export default function InsightsClient({ data }: any) {
           placeholder="Search insights..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full border border-gray-300 px-4 py-3 mb-10 rounded-md"
+          className="w-full border border-gray-300 px-4 py-3 mb-10 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
 
         {/* RESULTS COUNT */}
@@ -71,8 +83,11 @@ export default function InsightsClient({ data }: any) {
 
         {/* LIST */}
         <div className="space-y-6">
-          {filtered.map((item: any) => (
-            <div key={item.slug} className="border-b pb-4">
+          {filtered.map((item) => (
+            <div
+              key={item.slug}
+              className="border-b pb-4 hover:bg-white/50 transition px-2 py-2 rounded-md"
+            >
 
               <h3 className="font-semibold text-lg">
                 {item.title}
@@ -84,7 +99,7 @@ export default function InsightsClient({ data }: any) {
 
               <Link
                 href={`/insights/${item.slug}`}
-                className="text-teal-600 text-sm"
+                className="text-teal-600 text-sm font-medium hover:underline"
               >
                 Read Insight →
               </Link>
