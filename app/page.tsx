@@ -7,6 +7,7 @@ export default function Home() {
 
   return (
     <main className="bg-gray-50">
+
       <section className="relative min-h-screen flex items-center bg-[#0F1C2B] text-white overflow-hidden">
 
   <div className="absolute inset-0 opacity-[0.08] bg-[radial-gradient(circle,rgba(255,255,255,0.2)_1px,transparent_1px)] [background-size:22px_22px]" />
@@ -39,6 +40,7 @@ export default function Home() {
 
   </div>
 </section>
+
 <section className="py-20 max-w-6xl mx-auto px-6">
 
   <h2 className="text-2xl font-semibold mb-8">
@@ -75,6 +77,7 @@ export default function Home() {
   </div>
 
 </section>
+
 <section className="max-w-6xl mx-auto px-6 pb-20">
 
   <h2 className="text-2xl font-semibold mb-8">
